@@ -270,3 +270,59 @@ Vestly/
 | **Total** | **~39 file** |
 
 
+---
+
+### Alur Pengguna
+
+#### 1. Membuka Aplikasi
+- Pengguna membuka aplikasi → Muncul **Splash Overlay** (2 detik)
+- Menampilkan logo "VESTLY" dan slogan "Your Daily Fashion Inspiration"
+- Otomatis masuk ke halaman **Home**
+
+#### 2. Halaman Home
+- Menampilkan **feed foto fashion** dari Pexels API
+- Pengguna dapat **scroll** untuk melihat lebih banyak foto
+- **Pull to refresh** untuk memuat ulang data
+- **Filter Chip** (All, Casual, Formal, Streetwear, Minimalist, Hijab) untuk mengubah kategori
+- Klik foto → pindah ke **DetailActivity**
+
+#### 3. Halaman Search
+- Pengguna mengetik **kata kunci** minimal 3 karakter
+- Otomatis mencari foto yang sesuai
+- Hasil pencarian ditampilkan dalam bentuk **grid**
+- **Pull to refresh** untuk mengulang pencarian
+- Klik foto → pindah ke **DetailActivity**
+
+#### 4. Halaman Favorite
+- Menampilkan semua foto yang pernah **disukai** pengguna
+- Klik ❤️ pada item → menghapus dari favorit
+- Klik tombol **"Clear All Favorites"** → menghapus semua favorit sekaligus (dengan konfirmasi)
+- Klik foto → pindah ke **DetailActivity**
+
+#### 5. Halaman Settings
+- **Dark Mode toggle** → mengubah tema aplikasi (Light/Dark)
+- Menampilkan **informasi aplikasi** (versi, developer, sumber API)
+
+#### 6. Detail Activity
+- Menampilkan foto **ukuran besar**
+- Informasi **photographer**
+- Tombol **Favorite** (❤️) → menambah/menghapus dari favorit
+- Tombol **Share** → berbagi foto ke aplikasi lain
+- **Similar photos** (horizontal scroll) → rekomendasi foto serupa
+- Tombol **back** → kembali ke halaman sebelumnya
+
+---
+
+### Alur Data
+
+---
+
+### Status Koneksi
+
+| Kondisi | Home | Search | Favorite |
+|---------|------|--------|----------|
+| **Ada Internet** | Fetch dari API | Fetch dari API | Ambil dari SharedPreferences |
+| **Tidak Ada Internet (pernah buka)** | Tampil dari cache | Tampil dari cache (keyword yang sama) | Ambil dari SharedPreferences |
+| **Tidak Ada Internet (belum pernah buka)** | Error + Tombol Retry | Error + Tombol Retry | Tetap tampil (jika ada favorit) |
+
+
