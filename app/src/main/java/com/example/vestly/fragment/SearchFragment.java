@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +25,9 @@ import com.example.vestly.model.FavoritePhoto;
 import com.example.vestly.model.Photo;
 import com.example.vestly.model.PhotoResponse;
 import com.example.vestly.repository.PhotoRepository;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -138,6 +142,23 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    // ========== CACHE METHODS ==========
+    private void saveSearchToCache(String query, List<Photo> photos) {
+        Gson gson = new Gson();
+        String json = gson.toJson(photos);
+        SharedPrefManager.getInstance(requireContext()).saveSearchCache(query, json);
+    }
+
+    private List<Photo> loadSearchFromCache(String query) {
+        String json = SharedPrefManager.getInstance(requireContext()).getSearchCache(query);
+        if (json == null || json.isEmpty()) {
+            return new ArrayList<>();
+        }
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<Photo>>() {}.getType();
+        return gson.fromJson(json, type);
+    }
+
     private void loadDefaultPhotos() {
         showLoading();
         int randomPage = new Random().nextInt(10) + 1;
@@ -148,18 +169,41 @@ public class SearchFragment extends Fragment {
                     photoList.clear();
                     photoList.addAll(response.getPhotos());
                     photoAdapter.setPhotos(photoList);
+                    saveSearchToCache("fashion outfit style", photoList);
                     showContent();
                 });
             }
 
             @Override
             public void onError(String message) {
-                requireActivity().runOnUiThread(() -> showError());
+                requireActivity().runOnUiThread(() -> {
+                    List<Photo> cachedPhotos = loadSearchFromCache("fashion outfit style");
+                    if (!cachedPhotos.isEmpty()) {
+                        photoList.clear();
+                        photoList.addAll(cachedPhotos);
+                        photoAdapter.setPhotos(photoList);
+                        showContent();
+                        Toast.makeText(getContext(), "Menampilkan data terakhir (offline mode)", Toast.LENGTH_SHORT).show();
+                    } else {
+                        showError();
+                    }
+                });
             }
 
             @Override
             public void onNoConnection() {
-                requireActivity().runOnUiThread(() -> showError());
+                requireActivity().runOnUiThread(() -> {
+                    List<Photo> cachedPhotos = loadSearchFromCache("fashion outfit style");
+                    if (!cachedPhotos.isEmpty()) {
+                        photoList.clear();
+                        photoList.addAll(cachedPhotos);
+                        photoAdapter.setPhotos(photoList);
+                        showContent();
+                        Toast.makeText(getContext(), "Tidak ada koneksi. Menampilkan data terakhir.", Toast.LENGTH_LONG).show();
+                    } else {
+                        showError();
+                    }
+                });
             }
         });
     }
@@ -174,6 +218,7 @@ public class SearchFragment extends Fragment {
                     photoList.clear();
                     photoList.addAll(response.getPhotos());
                     photoAdapter.setPhotos(photoList);
+                    saveSearchToCache(query, photoList);
 
                     if (photoList.isEmpty()) {
                         showEmpty();
@@ -185,12 +230,34 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onError(String message) {
-                requireActivity().runOnUiThread(() -> showError());
+                requireActivity().runOnUiThread(() -> {
+                    List<Photo> cachedPhotos = loadSearchFromCache(query);
+                    if (!cachedPhotos.isEmpty()) {
+                        photoList.clear();
+                        photoList.addAll(cachedPhotos);
+                        photoAdapter.setPhotos(photoList);
+                        showContent();
+                        Toast.makeText(getContext(), "Menampilkan data terakhir untuk \"" + query + "\" (offline mode)", Toast.LENGTH_SHORT).show();
+                    } else {
+                        showError();
+                    }
+                });
             }
 
             @Override
             public void onNoConnection() {
-                requireActivity().runOnUiThread(() -> showError());
+                requireActivity().runOnUiThread(() -> {
+                    List<Photo> cachedPhotos = loadSearchFromCache(query);
+                    if (!cachedPhotos.isEmpty()) {
+                        photoList.clear();
+                        photoList.addAll(cachedPhotos);
+                        photoAdapter.setPhotos(photoList);
+                        showContent();
+                        Toast.makeText(getContext(), "Tidak ada koneksi. Menampilkan data terakhir untuk \"" + query + "\"", Toast.LENGTH_LONG).show();
+                    } else {
+                        showError();
+                    }
+                });
             }
         });
     }

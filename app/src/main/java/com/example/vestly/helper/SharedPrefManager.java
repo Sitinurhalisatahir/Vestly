@@ -105,4 +105,20 @@ public class SharedPrefManager {
     public String getHomeCache() {
         return pref.getString(KEY_HOME_CACHE, "");
     }
+
+    private static final String KEY_SEARCH_CACHE = "search_cache_";
+
+    public void saveSearchCache(String query, String json) {
+        editor.putString(KEY_SEARCH_CACHE + query.toLowerCase(), json);
+        editor.apply();
+    }
+
+    public String getSearchCache(String query) {
+        return pref.getString(KEY_SEARCH_CACHE + query.toLowerCase(), "");
+    }
+
+    public void clearAllFavorites() {
+        editor.putString(KEY_FAVORITES, new Gson().toJson(new ArrayList<FavoritePhoto>()));
+        editor.apply();
+    }
 }

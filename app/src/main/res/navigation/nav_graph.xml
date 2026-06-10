@@ -19,4 +19,9 @@
         android:name="com.example.vestly.fragment.FavoriteFragment"
         android:label="Favorite"/>
 
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.vestly.fragment.SettingsFragment"
+        android:label="Settings"/>
+
 </navigation>
