@@ -313,10 +313,6 @@ Vestly/
 
 ---
 
-### Alur Data
-
----
-
 ### Status Koneksi
 
 | Kondisi | Home | Search | Favorite |
