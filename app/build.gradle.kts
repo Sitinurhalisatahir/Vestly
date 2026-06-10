@@ -69,6 +69,9 @@ dependencies {
     // CircleImageView
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
+    // Swipe to Refresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
