@@ -23,16 +23,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Login Activity -->
-        <activity
-            android:name=".activity.LoginActivity"
-            android:exported="false"/>
-
-        <!-- Register Activity -->
-        <activity
-            android:name=".activity.RegisterActivity"
-            android:exported="false"/>
-
         <!-- Main Activity -->
         <activity
             android:name=".activity.MainActivity"
