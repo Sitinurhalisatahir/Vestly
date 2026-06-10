@@ -115,6 +115,7 @@ private void showCachedPhotos() {
         showContent();
     }
 }
+```
 
 ## Networking & Logika (Retrofit)
 
@@ -161,4 +162,90 @@ private void showCachedPhotos() {
         showContent();
     }
 }
+```
+
+## Struktur Folder Project
+```
+Vestly/
+├── app/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/com/example/vestly/
+│   │   │   │   ├── activity/
+│   │   │   │   │   ├── MainActivity.java          # Launcher, Bottom Navigation, Splash Overlay
+│   │   │   │   │   └── DetailActivity.java        # Detail foto, favorite, share
+│   │   │   │   │
+│   │   │   │   ├── fragment/
+│   │   │   │   │   ├── HomeFragment.java          # Feed foto, filter chip, offline cache
+│   │   │   │   │   ├── SearchFragment.java        # Pencarian foto, offline cache
+│   │   │   │   │   ├── FavoriteFragment.java      # Daftar favorit, hapus semua
+│   │   │   │   │   └── SettingsFragment.java      # Dark mode toggle, about
+│   │   │   │   │
+│   │   │   │   ├── adapter/
+│   │   │   │   │   ├── PhotoAdapter.java          # Adapter untuk Home & Search
+│   │   │   │   │   └── FavoriteAdapter.java       # Adapter untuk Favorite
+│   │   │   │   │
+│   │   │   │   ├── helper/
+│   │   │   │   │   ├── SharedPrefManager.java     # Favorite, tema, cache offline
+│   │   │   │   │   └── ThemeManager.java          # Dark/Light mode
+│   │   │   │   │
+│   │   │   │   ├── model/
+│   │   │   │   │   ├── Photo.java                 # Model foto dari Pexels API
+│   │   │   │   │   ├── PhotoResponse.java         # Response wrapper
+│   │   │   │   │   └── FavoritePhoto.java         # Model untuk favorit
+│   │   │   │   │
+│   │   │   │   ├── network/
+│   │   │   │   │   ├── ApiClient.java             # Retrofit instance
+│   │   │   │   │   ├── ApiService.java            # Interface endpoint API
+│   │   │   │   │   └── NetworkUtils.java          # Cek koneksi internet
+│   │   │   │   │
+│   │   │   │   └── repository/
+│   │   │   │       └── PhotoRepository.java       # Logic fetch data dari API
+│   │   │   │
+│   │   │   ├── res/
+│   │   │   │   ├── drawable/
+│   │   │   │   │   ├── ic_home.xml                # Icon Home
+│   │   │   │   │   ├── ic_search.xml              # Icon Search
+│   │   │   │   │   ├── ic_heart_outline.xml       # Icon Favorite (outline)
+│   │   │   │   │   ├── ic_heart_filled.xml        # Icon Favorite (filled)
+│   │   │   │   │   ├── ic_heart_selector.xml      # Selector favorite
+│   │   │   │   │   ├── ic_settings.xml            # Icon Settings
+│   │   │   │   │   ├── ic_back.xml                # Icon back
+│   │   │   │   │   └── bg_btn_back.xml            # Background tombol back
+│   │   │   │   │
+│   │   │   │   ├── layout/
+│   │   │   │   │   ├── activity_main.xml          # MainActivity + Splash Overlay
+│   │   │   │   │   ├── activity_detail.xml        # DetailActivity
+│   │   │   │   │   ├── fragment_home.xml          # HomeFragment layout
+│   │   │   │   │   ├── fragment_search.xml        # SearchFragment layout
+│   │   │   │   │   ├── fragment_favorite.xml      # FavoriteFragment layout
+│   │   │   │   │   ├── fragment_settings.xml      # SettingsFragment layout
+│   │   │   │   │   ├── item_photo.xml             # Item untuk PhotoAdapter
+│   │   │   │   │   └── item_favorite.xml          # Item untuk FavoriteAdapter
+│   │   │   │   │
+│   │   │   │   ├── menu/
+│   │   │   │   │   └── bottom_nav_menu.xml        # Menu BottomNavigationView
+│   │   │   │   │
+│   │   │   │   ├── navigation/
+│   │   │   │   │   └── nav_graph.xml              # Navigation Component graph
+│   │   │   │   │
+│   │   │   │   ├── values/
+│   │   │   │   │   ├── colors.xml                 # Warna aplikasi
+│   │   │   │   │   ├── strings.xml                # String resources
+│   │   │   │   │   ├── themes.xml                 # Tema Light Mode
+│   │   │   │   │   └── themes.xml (night)         # Tema Dark Mode
+│   │   │   │   │
+│   │   │   │   └── mipmap/                        # Icon launcher (hdpi, mdpi, xhdpi, dll)
+│   │   │   │
+│   │   │   └── AndroidManifest.xml                # Konfigurasi aplikasi
+│   │   │
+│   │   └── test/                                  # Unit test
+│   │
+│   └── build.gradle.kts                           # Dependency (Retrofit, Glide, dll)
+│
+├── build.gradle.kts                               # Project level build
+├── gradle.properties                              # Gradle config
+├── settings.gradle.kts                            # Settings gradle
+└── README.md                                      # Dokumentasi proyek
+```
 
