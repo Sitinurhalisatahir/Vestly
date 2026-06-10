@@ -249,3 +249,24 @@ Vestly/
 └── README.md                                      # Dokumentasi proyek
 ```
 
+---
+
+## Statistik File
+
+| Kategori | Jumlah File |
+|----------|-------------|
+| Activity | 2 |
+| Fragment | 4 |
+| Adapter | 2 |
+| Helper | 2 |
+| Model | 3 |
+| Network | 3 |
+| Repository | 1 |
+| Layout XML | 8 |
+| Drawable | 8 |
+| Menu | 1 |
+| Navigation | 1 |
+| Values | 4 |
+| **Total** | **~39 file** |
+
+
