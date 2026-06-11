@@ -2,11 +2,14 @@ package com.example.vestly.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +21,7 @@ import com.example.vestly.helper.SharedPrefManager;
 import com.example.vestly.model.FavoritePhoto;
 import com.example.vestly.model.Photo;
 import com.example.vestly.model.PhotoResponse;
+import com.example.vestly.repository.FavoriteRepository;
 import com.example.vestly.repository.PhotoRepository;
 import com.google.android.material.chip.Chip;
 import com.google.gson.Gson;
@@ -37,6 +41,7 @@ public class HomeFragment extends Fragment {
     private Button btnRetry;
     private SwipeRefreshLayout swipeRefresh;
     private String currentCategory = "fashion outfit style";
+    private FavoriteRepository favoriteRepository;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +58,8 @@ public class HomeFragment extends Fragment {
         btnRetry = view.findViewById(R.id.btn_retry);
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
 
+        favoriteRepository = new FavoriteRepository(requireContext());
+
         swipeRefresh.setOnRefreshListener(() -> {
             if (currentCategory.equals("fashion outfit style")) {
                 loadPhotos();
@@ -67,7 +74,7 @@ public class HomeFragment extends Fragment {
             public void onPhotoClick(Photo photo) {
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 intent.putExtra(DetailActivity.EXTRA_PHOTO_ID, photo.getId());
-                intent.putExtra(DetailActivity.EXTRA_PHOTO_URL, photo.getSrc().getPortrait());
+                intent.putExtra(DetailActivity.EXTRA_POTO_URL, photo.getSrc().getPortrait());
                 intent.putExtra(DetailActivity.EXTRA_PHOTOGRAPHER, photo.getPhotographer());
                 intent.putExtra(DetailActivity.EXTRA_CATEGORY, currentCategory);
                 startActivity(intent);
@@ -76,32 +83,31 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFavoriteClick(Photo photo, boolean isFavorite) {
                 if (isFavorite) {
-                    SharedPrefManager.getInstance(getContext()).addFavorite(
-                            new FavoritePhoto(photo.getId(), photo.getPhotographer(),
-                                    photo.getSrc().getPortrait(), currentCategory)
-                    );
+                    FavoritePhoto favoritePhoto = new FavoritePhoto(photo.getId(), photo.getPhotographer(),
+                            photo.getSrc().getPortrait(), currentCategory);
+                    favoriteRepository.insertFavorite(favoritePhoto, null);
+                    Toast.makeText(getContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
                 } else {
-                    SharedPrefManager.getInstance(getContext()).removeFavorite(photo.getId());
+                    favoriteRepository.deleteFavorite(photo.getId(), null);
+                    Toast.makeText(getContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
                 }
             }
         });
         recyclerView.setAdapter(photoAdapter);
 
         repository = new PhotoRepository(getContext());
-
         setupChips(view);
-
         loadPhotos();
-
         btnRetry.setOnClickListener(v -> loadPhotos());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        // Refresh adapter untuk update icon favorite
+        android.util.Log.d("TEST", "HomeFragment onResume dipanggil");
         if (photoAdapter != null) {
-            photoAdapter.notifyDataSetChanged();
+            android.util.Log.d("TEST", "refreshFavorites dipanggil");
+            photoAdapter.refreshFavorites();
         }
     }
 
@@ -118,11 +124,9 @@ public class HomeFragment extends Fragment {
             int index = i;
             Chip chip = view.findViewById(chipIds[i]);
             chip.setOnClickListener(v -> {
-
                 for (int id : chipIds) {
                     ((Chip) view.findViewById(id)).setChecked(false);
                 }
-
                 chip.setChecked(true);
                 currentCategory = categories[index];
                 loadPhotosByCategory(categories[index]);

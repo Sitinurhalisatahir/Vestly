@@ -24,6 +24,7 @@ import com.example.vestly.helper.SharedPrefManager;
 import com.example.vestly.model.FavoritePhoto;
 import com.example.vestly.model.Photo;
 import com.example.vestly.model.PhotoResponse;
+import com.example.vestly.repository.FavoriteRepository;
 import com.example.vestly.repository.PhotoRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -44,6 +45,7 @@ public class SearchFragment extends Fragment {
     private Button btnRetry;
     private SwipeRefreshLayout swipeRefresh;
     private String currentQuery = "";
+    private FavoriteRepository favoriteRepository;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,7 +64,8 @@ public class SearchFragment extends Fragment {
         btnRetry = view.findViewById(R.id.btn_retry);
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
 
-        // Setup Swipe Refresh
+        favoriteRepository = new FavoriteRepository(requireContext());
+
         swipeRefresh.setOnRefreshListener(() -> {
             if (etSearch.getText().toString().trim().isEmpty()) {
                 loadDefaultPhotos();
@@ -77,7 +80,7 @@ public class SearchFragment extends Fragment {
             public void onPhotoClick(Photo photo) {
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 intent.putExtra(DetailActivity.EXTRA_PHOTO_ID, photo.getId());
-                intent.putExtra(DetailActivity.EXTRA_PHOTO_URL, photo.getSrc().getPortrait());
+                intent.putExtra(DetailActivity.EXTRA_POTO_URL, photo.getSrc().getPortrait());
                 intent.putExtra(DetailActivity.EXTRA_PHOTOGRAPHER, photo.getPhotographer());
                 intent.putExtra(DetailActivity.EXTRA_CATEGORY, "search");
                 startActivity(intent);
@@ -86,12 +89,13 @@ public class SearchFragment extends Fragment {
             @Override
             public void onFavoriteClick(Photo photo, boolean isFavorite) {
                 if (isFavorite) {
-                    SharedPrefManager.getInstance(getContext()).addFavorite(
-                            new FavoritePhoto(photo.getId(), photo.getPhotographer(),
-                                    photo.getSrc().getPortrait(), "search")
-                    );
+                    FavoritePhoto favoritePhoto = new FavoritePhoto(photo.getId(), photo.getPhotographer(),
+                            photo.getSrc().getPortrait(), "search");
+                    favoriteRepository.insertFavorite(favoritePhoto, null);
+                    Toast.makeText(getContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
                 } else {
-                    SharedPrefManager.getInstance(getContext()).removeFavorite(photo.getId());
+                    favoriteRepository.deleteFavorite(photo.getId(), null);
+                    Toast.makeText(getContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -131,7 +135,6 @@ public class SearchFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         if (photoAdapter != null) {
             photoAdapter.notifyDataSetChanged();
         }

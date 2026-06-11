@@ -1,6 +1,8 @@
 package com.example.vestly.adapter;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.vestly.R;
-import com.example.vestly.helper.SharedPrefManager;
-import com.example.vestly.model.FavoritePhoto;
 import com.example.vestly.model.Photo;
+import com.example.vestly.repository.FavoriteRepository;
 import java.util.List;
 
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder> {
@@ -21,6 +22,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
     private Context context;
     private List<Photo> photoList;
     private OnPhotoClickListener listener;
+    private FavoriteRepository favoriteRepository;
+    private List<Integer> favoriteIds;
 
     public interface OnPhotoClickListener {
         void onPhotoClick(Photo photo);
@@ -31,6 +34,36 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         this.context = context;
         this.photoList = photoList;
         this.listener = listener;
+        this.favoriteRepository = new FavoriteRepository(context);
+        loadFavoriteIds();
+    }
+
+    private void loadFavoriteIds() {
+        android.util.Log.d("PhotoAdapter", "loadFavoriteIds mulai");
+        favoriteRepository.getAllFavorites(new FavoriteRepository.OnFavoritesLoadedCallback() {
+            @Override
+            public void onLoaded(List<com.example.vestly.model.FavoritePhoto> favorites) {
+                android.util.Log.d("PhotoAdapter", "Data favorit diterima, size: " + favorites.size());
+                favoriteIds = new java.util.ArrayList<>();
+                for (com.example.vestly.model.FavoritePhoto fav : favorites) {
+                    favoriteIds.add(fav.getId());
+                    android.util.Log.d("PhotoAdapter", "Favorite ID: " + fav.getId());
+                }
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    notifyDataSetChanged();
+                    android.util.Log.d("PhotoAdapter", "notifyDataSetChanged selesai");
+                });
+            }
+        });
+    }
+
+    public void refreshFavorites() {
+        android.util.Log.d("PhotoAdapter", "refreshFavorites dipanggil");
+        loadFavoriteIds();
+    }
+
+    private boolean isFavorite(int photoId) {
+        return favoriteIds != null && favoriteIds.contains(photoId);
     }
 
     @NonNull
@@ -51,7 +84,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
 
         holder.tvPhotographer.setText("@" + photo.getPhotographer());
 
-        boolean isFav = SharedPrefManager.getInstance(context).isFavorite(photo.getId());
+        boolean isFav = isFavorite(photo.getId());
         holder.btnFavorite.setSelected(isFav);
 
         holder.itemView.setOnClickListener(v -> listener.onPhotoClick(photo));
@@ -60,6 +93,15 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
             boolean newState = !holder.btnFavorite.isSelected();
             holder.btnFavorite.setSelected(newState);
             listener.onFavoriteClick(photo, newState);
+            if (newState) {
+                if (favoriteIds != null && !favoriteIds.contains(photo.getId())) {
+                    favoriteIds.add(photo.getId());
+                }
+            } else {
+                if (favoriteIds != null) {
+                    favoriteIds.remove(Integer.valueOf(photo.getId()));
+                }
+            }
         });
     }
 
@@ -70,7 +112,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
 
     public void setPhotos(List<Photo> photos) {
         this.photoList = photos;
-        notifyDataSetChanged();
+        loadFavoriteIds();
     }
 
     public static class PhotoViewHolder extends RecyclerView.ViewHolder {
