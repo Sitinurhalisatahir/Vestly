@@ -259,6 +259,7 @@ Vestly/
 │   │   │   │   │   ├── ic_heart_selector.xml
 │   │   │   │   │   ├── ic_settings.xml
 │   │   │   │   │   ├── ic_back.xml
+|   |   |   |   |   ├── ic_launcher_background.xml
 │   │   │   │   │   └── bg_btn_back.xml
 │   │   │   │   │
 │   │   │   │   ├── layout/
@@ -312,7 +313,7 @@ Vestly/
 | Network | 3 |
 | Repository | 2 |
 | Layout XML | 8 |
-| Drawable | 8 |
+| Drawable | 9 |
 | Menu | 1 |
 | Navigation | 1 |
 | Values | 4 |
