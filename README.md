@@ -301,9 +301,6 @@ Vestly/
 
 ## Statistik File
 
-
-## Statistik File
-
 | Kategori | Jumlah File |
 |----------|-------------|
 | Activity | 2 |
@@ -415,11 +412,14 @@ Vestly/
 |-----------|--------|
 | Java | Bahasa pemrograman utama |
 | Retrofit | Networking & API call ke Pexels |
-| SharedPreferences | Menyimpan favorit, tema, cache offline |
+| SQLite | Penyimpanan favorit secara lokal |
+| SharedPreferences | Penyimpanan tema dan cache offline |
 | Navigation Component | Navigasi antar fragment |
 | Glide | Memuat dan menampilkan gambar |
 | Material Design | UI Components (CardView, Chip, BottomNav) |
 | SwipeRefreshLayout | Pull to refresh |
+| ExecutorService | Background thread untuk operasi database |
+
 
 ## Developer
 
