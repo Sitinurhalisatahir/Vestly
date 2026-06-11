@@ -321,4 +321,70 @@ Vestly/
 | **Tidak Ada Internet (pernah buka)** | Tampil dari cache | Tampil dari cache (keyword yang sama) | Ambil dari SharedPreferences |
 | **Tidak Ada Internet (belum pernah buka)** | Error + Tombol Retry | Error + Tombol Retry | Tetap tampil (jika ada favorit) |
 
+## Cara Install
 
+### Cara 1 — Via APK (Mudah)
+
+1. Buka halaman **Releases** di GitHub:  
+   [https://github.com/Sitinurhalisatahir/Vestly/releases](https://github.com/Sitinurhalisatahir/Vestly/releases)
+
+2. Klik file **Vestly.apk** (atau `app-debug.apk`) → otomatis download
+
+3. Pindahkan file APK ke HP Android
+
+4. **Aktifkan** "Install from unknown sources" di HP:  
+   *Pengaturan → Keamanan → Install from unknown sources → ON*
+
+5. Buka file APK di HP → klik **Install**
+
+6. Buka aplikasi **Vestly**
+
+---
+
+### Cara 2 — Via Source Code (Build Sendiri)
+
+#### Persyaratan
+- Android Studio (versi terbaru)
+- Java JDK 11 atau lebih tinggi
+- Koneksi internet
+
+#### Langkah-langkah
+
+**1. Download source code dari GitHub:**
+   - Klik tombol **Code** → **Download ZIP**
+   - Extract file ZIP ke folder komputer kamu
+
+   **Atau via terminal:**
+   ```bash
+   git clone https://github.com/Sitinurhalisatahir/Vestly.git
+   ```
+
+## Tech Stack
+
+| Teknologi | Fungsi |
+|-----------|--------|
+| Java | Bahasa pemrograman utama |
+| Retrofit | Networking & API call ke Pexels |
+| SharedPreferences | Menyimpan favorit, tema, cache offline |
+| Navigation Component | Navigasi antar fragment |
+| Glide | Memuat dan menampilkan gambar |
+| Material Design | UI Components (CardView, Chip, BottomNav) |
+| SwipeRefreshLayout | Pull to refresh |
+
+## Developer
+
+| | |
+|---|---|
+| **Nama** | Siti Nur Halisa |
+| **NIM** | H071241086 |
+| **Tema Aplikasi** | Gaya Hidup (Lifestyle) |
+| **Mata Kuliah** | Pemrograman Mobile |
+| **Tahun** | 2026 |
+
+---
+
+## Referensi
+
+- [Pexels API Documentation](https://www.pexels.com/api/documentation/)
+- [Retrofit Documentation](https://square.github.io/retrofit/)
+- [Material Design Guidelines](https://material.io/design)
