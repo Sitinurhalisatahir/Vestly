@@ -11,7 +11,7 @@ Vestly adalah aplikasi inspirasi fashion yang membantu pengguna menemukan ide ga
 |----|-------|-----------|
 | 1 | 🏠 **Home** | Menampilkan trending fashion outfit dari Pexels API dengan **filter kategori** (All, Casual, Formal, Streetwear, Minimalist, Hijab) |
 | 2 | 🔍 **Search** | Mencari inspirasi fashion berdasarkan **kata kunci** yang diinginkan pengguna |
-| 3 | ❤️ **Favorite** | Menyimpan outfit favorit **secara lokal** menggunakan SharedPreferences |
+| 3 | ❤️ **Favorite** |  Menyimpan outfit favorit **secara lokal** menggunakan **SQLite Database**  |
 | 4 | ⚙️ **Settings** | Mengatur **Dark/Light Mode** dan menampilkan **informasi aplikasi** |
 | 5 | 📴 **Offline Cache** | Data Home dan hasil pencarian **tetap tampil** meskipun tanpa koneksi internet |
 | 6 | 🔄 **Pull to Refresh** | **Tarik layar ke bawah** untuk me-refresh data terbaru dari API |
@@ -50,9 +50,27 @@ Aplikasi Vestly mengusung desain UI dengan **tema warna Primary Purple (#6200EE)
 | FavoriteFragment | Menampilkan daftar foto favorit yang disimpan secara lokal (GridLayout) |
 | SettingsFragment | Pengaturan Dark/Light Mode dan informasi aplikasi |
 
+### Database (SQLite)
+
+| File | Fungsi |
+|------|--------|
+| DatabaseContract.java | Mendefinisikan nama tabel dan kolom |
+| DatabaseHelper.java | Membuat dan upgrade database SQLite |
+| FavoriteDao.java | CRUD operasi (insert, delete, query, isFavorite) |
+| FavoriteRepository.java | Jembatan antara fragment dengan database |
+
 ### Navigasi
 
 **Intent:** MainActivity → DetailActivity (membawa photoId, photoUrl, photographer, category)
+
+### Penyimpanan Data
+
+| Jenis Data | Metode Penyimpanan | Keterangan |
+|------------|-------------------|-------------|
+| Favorite | **SQLite** | Data favorit tersimpan permanen di database lokal |
+| Tema | SharedPreferences | Dark/Light mode |
+| Cache Home | SharedPreferences | Data offline untuk halaman Home |
+| Cache Search | SharedPreferences | Data offline untuk hasil pencarian |
 
 ### Offline Cache
 
@@ -60,7 +78,7 @@ Aplikasi Vestly mengusung desain UI dengan **tema warna Primary Purple (#6200EE)
 |----------|-------------------|----------------------|
 | HomeFragment | SharedPreferences | Menampilkan data terakhir yang pernah di-load |
 | SearchFragment | SharedPreferences | Menampilkan hasil pencarian terakhir (per kata kunci) |
-| FavoriteFragment | SharedPreferences | Menampilkan semua favorit (tersimpan permanen) |
+| FavoriteFragment | SQLite | Menampilkan semua favorit dari database |
 
 ### RecyclerView
 
@@ -163,6 +181,30 @@ private void showCachedPhotos() {
     }
 }
 ```
+## Background Thread
+
+Operasi database SQLite dijalankan di **background thread** menggunakan `ExecutorService` agar tidak memblokir UI. Hasilnya dikembalikan ke Main Thread melalui `Handler`.
+
+```java
+ExecutorService executor = Executors.newSingleThreadExecutor();
+Handler handler = new Handler(Looper.getMainLooper());
+
+executor.execute(() -> {
+    List<FavoritePhoto> favorites = favoriteDao.getAllFavorites();
+    handler.post(() -> {
+        favoriteAdapter.setFavorites(favorites);
+    });
+});
+```
+
+---
+
+### 5. **Update Tech Stack**
+
+```markdown
+| SQLite | Penyimpanan favorit secara lokal |
+| ExecutorService | Background thread untuk operasi database |
+```
 
 ## Struktur Folder Project
 ```
@@ -172,84 +214,93 @@ Vestly/
 │   │   ├── main/
 │   │   │   ├── java/com/example/vestly/
 │   │   │   │   ├── activity/
-│   │   │   │   │   ├── MainActivity.java          # Launcher, Bottom Navigation, Splash Overlay
-│   │   │   │   │   └── DetailActivity.java        # Detail foto, favorite, share
+│   │   │   │   │   ├── MainActivity.java
+│   │   │   │   │   └── DetailActivity.java
 │   │   │   │   │
 │   │   │   │   ├── fragment/
-│   │   │   │   │   ├── HomeFragment.java          # Feed foto, filter chip, offline cache
-│   │   │   │   │   ├── SearchFragment.java        # Pencarian foto, offline cache
-│   │   │   │   │   ├── FavoriteFragment.java      # Daftar favorit, hapus semua
-│   │   │   │   │   └── SettingsFragment.java      # Dark mode toggle, about
+│   │   │   │   │   ├── HomeFragment.java
+│   │   │   │   │   ├── SearchFragment.java
+│   │   │   │   │   ├── FavoriteFragment.java
+│   │   │   │   │   └── SettingsFragment.java
 │   │   │   │   │
 │   │   │   │   ├── adapter/
-│   │   │   │   │   ├── PhotoAdapter.java          # Adapter untuk Home & Search
-│   │   │   │   │   └── FavoriteAdapter.java       # Adapter untuk Favorite
+│   │   │   │   │   ├── PhotoAdapter.java
+│   │   │   │   │   └── FavoriteAdapter.java
+│   │   │   │   │
+│   │   │   │   ├── database/
+│   │   │   │   │   ├── DatabaseContract.java
+│   │   │   │   │   ├── DatabaseHelper.java
+│   │   │   │   │   └── FavoriteDao.java
 │   │   │   │   │
 │   │   │   │   ├── helper/
-│   │   │   │   │   ├── SharedPrefManager.java     # Favorite, tema, cache offline
-│   │   │   │   │   └── ThemeManager.java          # Dark/Light mode
+│   │   │   │   │   ├── SharedPrefManager.java
+│   │   │   │   │   └── ThemeManager.java
 │   │   │   │   │
 │   │   │   │   ├── model/
-│   │   │   │   │   ├── Photo.java                 # Model foto dari Pexels API
-│   │   │   │   │   ├── PhotoResponse.java         # Response wrapper
-│   │   │   │   │   └── FavoritePhoto.java         # Model untuk favorit
+│   │   │   │   │   ├── Photo.java
+│   │   │   │   │   ├── PhotoResponse.java
+│   │   │   │   │   └── FavoritePhoto.java
 │   │   │   │   │
 │   │   │   │   ├── network/
-│   │   │   │   │   ├── ApiClient.java             # Retrofit instance
-│   │   │   │   │   ├── ApiService.java            # Interface endpoint API
-│   │   │   │   │   └── NetworkUtils.java          # Cek koneksi internet
+│   │   │   │   │   ├── ApiClient.java
+│   │   │   │   │   ├── ApiService.java
+│   │   │   │   │   └── NetworkUtils.java
 │   │   │   │   │
 │   │   │   │   └── repository/
-│   │   │   │       └── PhotoRepository.java       # Logic fetch data dari API
+│   │   │   │       ├── PhotoRepository.java
+│   │   │   │       └── FavoriteRepository.java
 │   │   │   │
 │   │   │   ├── res/
 │   │   │   │   ├── drawable/
-│   │   │   │   │   ├── ic_home.xml                # Icon Home
-│   │   │   │   │   ├── ic_search.xml              # Icon Search
-│   │   │   │   │   ├── ic_heart_outline.xml       # Icon Favorite (outline)
-│   │   │   │   │   ├── ic_heart_filled.xml        # Icon Favorite (filled)
-│   │   │   │   │   ├── ic_heart_selector.xml      # Selector favorite
-│   │   │   │   │   ├── ic_settings.xml            # Icon Settings
-│   │   │   │   │   ├── ic_back.xml                # Icon back
-│   │   │   │   │   └── bg_btn_back.xml            # Background tombol back
+│   │   │   │   │   ├── ic_home.xml
+│   │   │   │   │   ├── ic_search.xml
+│   │   │   │   │   ├── ic_heart_outline.xml
+│   │   │   │   │   ├── ic_heart_filled.xml
+│   │   │   │   │   ├── ic_heart_selector.xml
+│   │   │   │   │   ├── ic_settings.xml
+│   │   │   │   │   ├── ic_back.xml
+│   │   │   │   │   └── bg_btn_back.xml
 │   │   │   │   │
 │   │   │   │   ├── layout/
-│   │   │   │   │   ├── activity_main.xml          # MainActivity + Splash Overlay
-│   │   │   │   │   ├── activity_detail.xml        # DetailActivity
-│   │   │   │   │   ├── fragment_home.xml          # HomeFragment layout
-│   │   │   │   │   ├── fragment_search.xml        # SearchFragment layout
-│   │   │   │   │   ├── fragment_favorite.xml      # FavoriteFragment layout
-│   │   │   │   │   ├── fragment_settings.xml      # SettingsFragment layout
-│   │   │   │   │   ├── item_photo.xml             # Item untuk PhotoAdapter
-│   │   │   │   │   └── item_favorite.xml          # Item untuk FavoriteAdapter
+│   │   │   │   │   ├── activity_main.xml
+│   │   │   │   │   ├── activity_detail.xml
+│   │   │   │   │   ├── fragment_home.xml
+│   │   │   │   │   ├── fragment_search.xml
+│   │   │   │   │   ├── fragment_favorite.xml
+│   │   │   │   │   ├── fragment_settings.xml
+│   │   │   │   │   ├── item_photo.xml
+│   │   │   │   │   └── item_favorite.xml
 │   │   │   │   │
 │   │   │   │   ├── menu/
-│   │   │   │   │   └── bottom_nav_menu.xml        # Menu BottomNavigationView
+│   │   │   │   │   └── bottom_nav_menu.xml
 │   │   │   │   │
 │   │   │   │   ├── navigation/
-│   │   │   │   │   └── nav_graph.xml              # Navigation Component graph
+│   │   │   │   │   └── nav_graph.xml
 │   │   │   │   │
 │   │   │   │   ├── values/
-│   │   │   │   │   ├── colors.xml                 # Warna aplikasi
-│   │   │   │   │   ├── strings.xml                # String resources
-│   │   │   │   │   ├── themes.xml                 # Tema Light Mode
-│   │   │   │   │   └── themes.xml (night)         # Tema Dark Mode
+│   │   │   │   │   ├── colors.xml
+│   │   │   │   │   ├── strings.xml
+│   │   │   │   │   ├── themes.xml
+│   │   │   │   │   └── themes.xml (night)
 │   │   │   │   │
-│   │   │   │   └── mipmap/                        # Icon launcher (hdpi, mdpi, xhdpi, dll)
+│   │   │   │   └── mipmap/
 │   │   │   │
-│   │   │   └── AndroidManifest.xml                # Konfigurasi aplikasi
+│   │   │   └── AndroidManifest.xml
 │   │   │
-│   │   └── test/                                  # Unit test
+│   │   └── test/
 │   │
-│   └── build.gradle.kts                           # Dependency (Retrofit, Glide, dll)
+│   └── build.gradle.kts
 │
-├── build.gradle.kts                               # Project level build
-├── gradle.properties                              # Gradle config
-├── settings.gradle.kts                            # Settings gradle
-└── README.md                                      # Dokumentasi proyek
+├── build.gradle.kts
+├── gradle.properties
+├── settings.gradle.kts
+└── README.md
 ```
 
 ---
+
+## Statistik File
+
 
 ## Statistik File
 
@@ -258,16 +309,17 @@ Vestly/
 | Activity | 2 |
 | Fragment | 4 |
 | Adapter | 2 |
+| Database | 3 |
 | Helper | 2 |
 | Model | 3 |
 | Network | 3 |
-| Repository | 1 |
+| Repository | 2 |
 | Layout XML | 8 |
 | Drawable | 8 |
 | Menu | 1 |
 | Navigation | 1 |
 | Values | 4 |
-| **Total** | **~39 file** |
+| **Total** | **~43 file** |
 
 
 ---
@@ -315,11 +367,9 @@ Vestly/
 
 ### Status Koneksi
 
-| Kondisi | Home | Search | Favorite |
-|---------|------|--------|----------|
-| **Ada Internet** | Fetch dari API | Fetch dari API | Ambil dari SharedPreferences |
-| **Tidak Ada Internet (pernah buka)** | Tampil dari cache | Tampil dari cache (keyword yang sama) | Ambil dari SharedPreferences |
-| **Tidak Ada Internet (belum pernah buka)** | Error + Tombol Retry | Error + Tombol Retry | Tetap tampil (jika ada favorit) |
+| **Ada Internet** | Fetch dari API | Fetch dari API | Ambil dari **SQLite** |
+| **Tidak Ada Internet (pernah buka)** | Tampil dari cache | Tampil dari cache (keyword yang sama) | Ambil dari **SQLite** |
+| **Tidak Ada Internet (belum pernah buka)** | Error + Tombol Retry | Error + Tombol Retry | Tetap tampil dari **SQLite** (jika ada favorit) |
 
 ## Cara Install
 
