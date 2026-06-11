@@ -425,7 +425,7 @@ Vestly/
 
 | | |
 |---|---|
-| **Nama** | Siti Nur Halisa |
+| **Nama** | Siti Nur Halisa Tahir |
 | **NIM** | H071241086 |
 | **Tema Aplikasi** | Gaya Hidup (Lifestyle) |
 | **Mata Kuliah** | Pemrograman Mobile |
