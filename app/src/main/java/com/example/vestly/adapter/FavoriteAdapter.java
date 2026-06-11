@@ -42,22 +42,17 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     public void onBindViewHolder(@NonNull FavoriteViewHolder holder, int position) {
         FavoritePhoto photo = favoriteList.get(position);
 
-        // Load gambar
         Glide.with(context)
                 .load(photo.getPortraitUrl())
                 .placeholder(R.color.light_card)
                 .into(holder.imgPhoto);
 
-        // Nama photographer
         holder.tvPhotographer.setText("@" + photo.getPhotographer());
 
-        // Favorit selalu selected (sudah tersimpan)
         holder.btnFavorite.setSelected(true);
 
-        // Klik foto → detail
         holder.itemView.setOnClickListener(v -> listener.onPhotoClick(photo));
 
-        // Klik favorit → hapus
         holder.btnFavorite.setOnClickListener(v -> {
             listener.onRemoveFavorite(photo);
             favoriteList.remove(position);

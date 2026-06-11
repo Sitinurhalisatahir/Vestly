@@ -43,11 +43,9 @@ public class FavoriteFragment extends Fragment {
 
         pref = SharedPrefManager.getInstance(requireContext());
 
-        // Setup RecyclerView
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         loadFavorites();
 
-        // Tombol Hapus Semua
         btnClearAll.setOnClickListener(v -> showClearAllDialog());
     }
 

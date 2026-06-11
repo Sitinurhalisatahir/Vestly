@@ -2,12 +2,10 @@
 <resources>
     <string name="app_name">Vestly</string>
 
-    <!-- Bottom Nav -->
     <string name="nav_home">Home</string>
     <string name="nav_search">Search</string>
     <string name="nav_favorite">Favorite</string>
 
-    <!-- Home -->
     <string name="title_home">Vestly</string>
     <string name="label_trending">TRENDING NOW</string>
     <string name="filter_all">All</string>
@@ -17,21 +15,17 @@
     <string name="filter_minimalist">Minimalist</string>
     <string name="filter_hijab">Hijab</string>
 
-    <!-- Search -->
     <string name="hint_search">Search outfit inspiration...</string>
 
-    <!-- Favorite -->
     <string name="title_favorite">My Collection</string>
     <string name="label_favorite">My Collection</string>
     <string name="label_see_all">SEE ALL</string>
     <string name="label_dark_theme">Dark Mode</string>
 
-    <!-- Detail -->
     <string name="label_photographer">Photographer</string>
     <string name="label_save">Save</string>
     <string name="label_share">Share</string>
 
-    <!-- Error -->
     <string name="error_no_connection">No internet connection.</string>
     <string name="btn_retry">Try Again</string>
     <!-- TODO: Remove or change this placeholder text -->

@@ -16,7 +16,7 @@ public class SharedPrefManager {
     private static final String KEY_THEME = "isDarkTheme";
     private static final String KEY_BIO = "bio";
     private static final String KEY_PHOTO = "photo";
-    private static final String KEY_HOME_CACHE = "home_cache";  // ← TAMBAHAN
+    private static final String KEY_HOME_CACHE = "home_cache";  
 
     private static SharedPrefManager instance;
     private SharedPreferences pref;
@@ -34,7 +34,7 @@ public class SharedPrefManager {
         return instance;
     }
 
-    // ── Favorites ──
+
     public List<FavoritePhoto> getFavorites() {
         String json = pref.getString(KEY_FAVORITES, null);
         if (json == null) return new ArrayList<>();
@@ -66,7 +66,6 @@ public class SharedPrefManager {
         return false;
     }
 
-    // ── Theme ──
     public void setDarkTheme(boolean isDark) {
         editor.putBoolean(KEY_THEME, isDark);
         editor.apply();
@@ -76,7 +75,6 @@ public class SharedPrefManager {
         return pref.getBoolean(KEY_THEME, false);
     }
 
-    // ── Bio (opsional) ──
     public void saveBio(String bio) {
         editor.putString(KEY_BIO, bio);
         editor.apply();
@@ -86,7 +84,6 @@ public class SharedPrefManager {
         return pref.getString(KEY_BIO, "");
     }
 
-    // ── Profile Photo (opsional) ──
     public void savePhotoUri(String uri) {
         editor.putString(KEY_PHOTO, uri);
         editor.apply();
@@ -96,7 +93,6 @@ public class SharedPrefManager {
         return pref.getString(KEY_PHOTO, "");
     }
 
-    // ── Home Cache (untuk offline mode) ──
     public void saveHomeCache(String json) {
         editor.putString(KEY_HOME_CACHE, json);
         editor.apply();

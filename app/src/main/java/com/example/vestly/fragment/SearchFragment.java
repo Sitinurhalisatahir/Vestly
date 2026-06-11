@@ -71,7 +71,6 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        // Setup RecyclerView
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         photoAdapter = new PhotoAdapter(getContext(), photoList, new PhotoAdapter.OnPhotoClickListener() {
             @Override
@@ -98,10 +97,8 @@ public class SearchFragment extends Fragment {
         });
         recyclerView.setAdapter(photoAdapter);
 
-        // Setup Repository
         repository = new PhotoRepository(getContext());
 
-        // Tombol retry
         btnRetry.setOnClickListener(v -> {
             if (currentQuery.isEmpty()) {
                 loadDefaultPhotos();
@@ -110,10 +107,8 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        // Load default fashion photos
         loadDefaultPhotos();
 
-        // Search listener
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -136,13 +131,12 @@ public class SearchFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        // Refresh adapter untuk update icon favorite
+
         if (photoAdapter != null) {
             photoAdapter.notifyDataSetChanged();
         }
     }
 
-    // ========== CACHE METHODS ==========
     private void saveSearchToCache(String query, List<Photo> photos) {
         Gson gson = new Gson();
         String json = gson.toJson(photos);

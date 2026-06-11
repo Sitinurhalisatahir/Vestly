@@ -67,7 +67,6 @@
 
     </HorizontalScrollView>
 
-    <!-- Swipe Refresh Layout -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
@@ -82,7 +81,6 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <!-- Error Layout -->
     <LinearLayout
         android:id="@+id/layout_error"
         android:layout_width="match_parent"

@@ -29,7 +29,6 @@ public class PhotoRepository {
         this.executor = Executors.newSingleThreadExecutor();
     }
 
-    // ── Curated Photos (Home Feed) ──
     public void getCuratedPhotos(int page, PhotoCallback callback) {
         executor.execute(() -> {
             if (!NetworkUtils.isConnected(context)) {
@@ -55,7 +54,7 @@ public class PhotoRepository {
         });
     }
 
-    // ── Search Photos ──
+
     public void searchPhotos(String query, int page, PhotoCallback callback) {
         executor.execute(() -> {
             if (!NetworkUtils.isConnected(context)) {
@@ -81,7 +80,7 @@ public class PhotoRepository {
         });
     }
 
-    // ── Search by Category ──
+
     public void getPhotosByCategory(String category, int page, PhotoCallback callback) {
         String query = category + " outfit fashion";
         searchPhotos(query, page, callback);

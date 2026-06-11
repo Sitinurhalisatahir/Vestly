@@ -46,13 +46,11 @@ public class DetailActivity extends AppCompatActivity {
         ThemeManager.applyTheme(SharedPrefManager.getInstance(this).isDarkTheme());
         setContentView(R.layout.activity_detail);
 
-        // Ambil data dari Intent
         photoId = getIntent().getIntExtra(EXTRA_PHOTO_ID, 0);
         photoUrl = getIntent().getStringExtra(EXTRA_PHOTO_URL);
         photographer = getIntent().getStringExtra(EXTRA_PHOTOGRAPHER);
         category = getIntent().getStringExtra(EXTRA_CATEGORY);
 
-        // Init views
         imgPhoto = findViewById(R.id.img_photo);
         tvPhotographer = findViewById(R.id.tv_photographer);
         tvDescription = findViewById(R.id.tv_description);
@@ -61,27 +59,26 @@ public class DetailActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btn_back);
         recyclerSimilar = findViewById(R.id.recycler_similar);
 
-        // Load foto
+        
         Glide.with(this)
                 .load(photoUrl)
                 .placeholder(R.color.light_card)
                 .centerCrop()
                 .into(imgPhoto);
 
-        // Set photographer
         tvPhotographer.setText("Photo by " + photographer);
 
-        // Set deskripsi
+        
         tvDescription.setText("Capturing the essence of modern fashion through a curated lens. This look explores the intersection of style and elegance.");
 
-        // Cek status favorit
+        
         isFavorite = SharedPrefManager.getInstance(this).isFavorite(photoId);
         updateFavoriteButton();
 
-        // Tombol back
+        
         btnBack.setOnClickListener(v -> finish());
 
-        // Tombol favorit
+
         btnFavorite.setOnClickListener(v -> {
             isFavorite = !isFavorite;
             updateFavoriteButton();
@@ -96,7 +93,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        // Tombol share
+        
         btnShare.setOnClickListener(v -> {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
@@ -105,14 +102,14 @@ public class DetailActivity extends AppCompatActivity {
             startActivity(Intent.createChooser(shareIntent, "Share via"));
         });
 
-        // Load Similar Moods
+
         recyclerSimilar.setLayoutManager(new LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false));
         similarAdapter = new PhotoAdapter(this, similarList,
                 new PhotoAdapter.OnPhotoClickListener() {
                     @Override
                     public void onPhotoClick(Photo photo) {
-                        // Buka detail foto similar
+                        
                         Intent intent = new Intent(DetailActivity.this, DetailActivity.class);
                         intent.putExtra(EXTRA_PHOTO_ID, photo.getId());
                         intent.putExtra(EXTRA_PHOTO_URL, photo.getSrc().getPortrait());

@@ -30,14 +30,14 @@ public class MainActivity extends AppCompatActivity {
 
         splashOverlay = findViewById(R.id.splash_overlay);
 
-        // Setup Navigation
+       
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment);
         NavController navController = navHostFragment.getNavController();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
-        // Tampilkan splash selama 2 detik, lalu hilang
+        
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             if (splashOverlay != null) {
                 splashOverlay.setVisibility(View.GONE);

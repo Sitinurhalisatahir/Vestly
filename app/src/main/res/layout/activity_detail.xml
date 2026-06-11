@@ -33,14 +33,12 @@
 
         </FrameLayout>
 
-        <!-- Info Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Label Photographer -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,7 +48,6 @@
                 android:letterSpacing="0.15"
                 android:textStyle="bold"/>
 
-            <!-- Nama Photographer -->
             <TextView
                 android:id="@+id/tv_photographer"
                 android:layout_width="wrap_content"
@@ -60,7 +57,6 @@
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginTop="4dp"/>
 
-            <!-- Deskripsi -->
             <TextView
                 android:id="@+id/tv_description"
                 android:layout_width="match_parent"
@@ -70,7 +66,6 @@
                 android:lineSpacingMultiplier="1.5"
                 android:layout_marginTop="12dp"/>
 
-            <!-- Tombol Simpan -->
             <Button
                 android:id="@+id/btn_favorite"
                 android:layout_width="match_parent"
@@ -80,7 +75,6 @@
                 android:textSize="15sp"
                 android:layout_marginTop="24dp"/>
 
-            <!-- Tombol Share -->
             <Button
                 android:id="@+id/btn_share"
                 android:layout_width="match_parent"
@@ -92,14 +86,12 @@
                 android:layout_marginTop="12dp"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
-            <!-- Divider -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?attr/colorSurfaceVariant"
                 android:layout_marginVertical="20dp"/>
 
-            <!-- Similar Moods Label -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -109,7 +101,6 @@
                 android:letterSpacing="0.15"
                 android:textStyle="bold"/>
 
-            <!-- Similar Moods RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_similar"
                 android:layout_width="match_parent"

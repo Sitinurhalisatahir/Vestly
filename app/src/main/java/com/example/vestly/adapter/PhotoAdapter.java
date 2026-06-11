@@ -44,23 +44,18 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
     public void onBindViewHolder(@NonNull PhotoViewHolder holder, int position) {
         Photo photo = photoList.get(position);
 
-        // Load gambar
         Glide.with(context)
                 .load(photo.getSrc().getPortrait())
                 .placeholder(R.color.light_card)
                 .into(holder.imgPhoto);
 
-        // Nama photographer
         holder.tvPhotographer.setText("@" + photo.getPhotographer());
 
-        // Cek status favorit
         boolean isFav = SharedPrefManager.getInstance(context).isFavorite(photo.getId());
         holder.btnFavorite.setSelected(isFav);
 
-        // Klik foto → detail
         holder.itemView.setOnClickListener(v -> listener.onPhotoClick(photo));
 
-        // Klik favorit
         holder.btnFavorite.setOnClickListener(v -> {
             boolean newState = !holder.btnFavorite.isSelected();
             holder.btnFavorite.setSelected(newState);

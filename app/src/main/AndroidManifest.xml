@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Vestly">
 
-        <!-- MAIN ACTIVITY SEBAGAI LAUNCHER -->
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">
@@ -22,7 +21,6 @@
             </intent-filter>
         </activity>
 
-        <!-- DetailActivity -->
         <activity
             android:name=".activity.DetailActivity"
             android:exported="false" />

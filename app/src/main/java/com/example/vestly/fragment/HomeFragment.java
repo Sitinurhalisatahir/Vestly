@@ -53,7 +53,6 @@ public class HomeFragment extends Fragment {
         btnRetry = view.findViewById(R.id.btn_retry);
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
 
-        // Setup Swipe Refresh
         swipeRefresh.setOnRefreshListener(() -> {
             if (currentCategory.equals("fashion outfit style")) {
                 loadPhotos();
@@ -62,7 +61,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // Setup RecyclerView
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         photoAdapter = new PhotoAdapter(getContext(), photoList, new PhotoAdapter.OnPhotoClickListener() {
             @Override
@@ -89,16 +87,12 @@ public class HomeFragment extends Fragment {
         });
         recyclerView.setAdapter(photoAdapter);
 
-        // Setup Repository
         repository = new PhotoRepository(getContext());
 
-        // Setup filter chips
         setupChips(view);
 
-        // Load data (coba dari API, kalau gagal pakai cache)
         loadPhotos();
 
-        // Tombol retry
         btnRetry.setOnClickListener(v -> loadPhotos());
     }
 
@@ -117,7 +111,6 @@ public class HomeFragment extends Fragment {
         String[] categories = {"fashion outfit style", "casual outfit", "formal outfit",
                 "streetwear outfit", "minimalist outfit", "hijab outfit"};
 
-        // Set chip_all sebagai default aktif
         Chip chipAll = view.findViewById(R.id.chip_all);
         chipAll.setChecked(true);
 
@@ -125,11 +118,11 @@ public class HomeFragment extends Fragment {
             int index = i;
             Chip chip = view.findViewById(chipIds[i]);
             chip.setOnClickListener(v -> {
-                // Uncheck semua chip dulu
+
                 for (int id : chipIds) {
                     ((Chip) view.findViewById(id)).setChecked(false);
                 }
-                // Check chip yang diklik
+
                 chip.setChecked(true);
                 currentCategory = categories[index];
                 loadPhotosByCategory(categories[index]);
@@ -214,7 +207,6 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    // ========== CACHE METHODS ==========
     private void savePhotosToCache(List<Photo> photos) {
         Gson gson = new Gson();
         String json = gson.toJson(photos);
