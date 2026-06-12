@@ -16,7 +16,7 @@
 
 | Splash | Home | Search | Favorite | Settings |
 |--------|------|--------|----------|----------|
-| <img width="720" height="1544" alt="image" src="https://github.com/user-attachments/assets/7b5b15b7-eb90-49f7-b21a-84d27f717c67" /> | <img width="720" height="1544" alt="image" src="https://github.com/user-attachments/assets/57cf8ea5-87c9-4f6b-a572-7cf298b5bafb" /> | <img width="720" height="1544" alt="image" src="https://github.com/user-attachments/assets/f8bdd671-3cce-4377-9aee-2dad3e1677d0" /> | <img width="720" height="1544" alt="image" src="https://github.com/user-attachments/assets/5f78f2e0-a36e-48c1-8483-170e9e9e0adf" /> | <img width="720" height="1544" alt="image" src="https://github.com/user-attachments/assets/1d4e754e-8abe-4d03-950a-580a9177554c" /> |
+| <img width="720" height="1544" alt="image" src="https://github.com/user-attachments/assets/7b5b15b7-eb90-49f7-b21a-84d27f717c67" /> | <img width="720" height="1544" alt="image" src="https://github.com/user-attachments/assets/57cf8ea5-87c9-4f6b-a572-7cf298b5bafb" /> | <img width="720" height="1544" alt="image" src="https://github.com/user-attachments/assets/f8bdd671-3cce-4377-9aee-2dad3e1677d0" /> | <img width="720" height="1544" alt="image" src="https://github.com/user-attachments/assets/5f78f2e0-a36e-48c1-8483-170e9e9e0adf" /> |<img width="720" height="1544" alt="image" src="https://github.com/user-attachments/assets/bfe13da9-c5b5-4fe2-8285-130203239778" />|
 
 
 ## Fitur Utama
