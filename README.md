@@ -1,13 +1,10 @@
 # Vestly — Fashion Inspiration App
 
-- **Platform**  
-  Android  
-- **Language**  
-  Java  
-- **Min SDK**  
-  API 24 (Android 7.0)  
-- **License**  
-  MIT  
+![Platform](https://img.shields.io/badge/Platform-Android-brightgreen)
+![Language](https://img.shields.io/badge/Language-Java-orange)
+![Min SDK](https://img.shields.io/badge/Min%20SDK-24-blue)
+![Database](https://img.shields.io/badge/Database-SQLite-purple)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 *"Your Daily Fashion Inspiration"*
 
