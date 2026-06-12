@@ -12,6 +12,17 @@
 
 **Tema Aplikasi:** Gaya Hidup (Lifestyle)
 
+## Screenshot
+
+| Splash | Home | Search | Favorite | Settings |
+|--------|------|--------|----------|----------|
+| <img width="720" height="1544" alt="image" src="https://github.com/user-attachments/assets/042cd6c3-d9bd-47e9-a727-7755ce41951a" />
+| <img width="720" height="1544" alt="image" src="https://github.com/user-attachments/assets/5e15b131-3b56-4b15-9de7-f061849c38ae" />
+| <img width="720" height="1544" alt="image" src="https://github.com/user-attachments/assets/1e803813-4c95-4c90-b33e-9f81b9f41ea8" />
+| <img width="720" height="1544" alt="image" src="https://github.com/user-attachments/assets/37d8049a-78da-4ba8-a8b1-39edd5587ff7" />
+| <img width="720" height="1544" alt="image" src="https://github.com/user-attachments/assets/287d73ec-051f-426c-b5fb-fcc3f9b134de" />
+
+
 ## Fitur Utama
 
 | No | Fitur | Deskripsi |
