@@ -200,11 +200,10 @@ executor.execute(() -> {
 ---
 
 ### 5. **Update Tech Stack**
-
-```markdown
+| Teknologi | Fungsi |
+|-----------|--------|
 | SQLite | Penyimpanan favorit secara lokal |
 | ExecutorService | Background thread untuk operasi database |
-```
 
 ## Struktur Folder Project
 ```
