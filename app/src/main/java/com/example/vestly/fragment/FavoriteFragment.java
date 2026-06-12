@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.vestly.R;
 import com.example.vestly.activity.DetailActivity;
 import com.example.vestly.adapter.FavoriteAdapter;
-import com.example.vestly.helper.SharedPrefManager;
 import com.example.vestly.model.FavoritePhoto;
 import com.example.vestly.repository.FavoriteRepository;
 import java.util.List;

@@ -54,7 +54,6 @@ public class PhotoRepository {
         });
     }
 
-
     public void searchPhotos(String query, int page, PhotoCallback callback) {
         executor.execute(() -> {
             if (!NetworkUtils.isConnected(context)) {
@@ -79,7 +78,6 @@ public class PhotoRepository {
             });
         });
     }
-
 
     public void getPhotosByCategory(String category, int page, PhotoCallback callback) {
         String query = category + " outfit fashion";

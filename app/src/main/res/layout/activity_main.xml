@@ -32,6 +32,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    
     <LinearLayout
         android:id="@+id/splash_overlay"
         android:layout_width="match_parent"
@@ -41,14 +43,12 @@
         android:background="?attr/colorSurface"
         android:visibility="visible">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="VESTLY"
-            android:textSize="48sp"
-            android:textStyle="bold"
-            android:textColor="@color/primary"
-            android:letterSpacing="0.1"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@mipmap/ic_launcher_round"
+            android:scaleType="centerCrop"
+            app:civ_border_width="0dp"/>
 
         <View
             android:layout_width="match_parent"
@@ -59,8 +59,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your Daily Fashion Inspiration"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"/>
 
     </LinearLayout>
-   </FrameLayout>
+
+</FrameLayout>

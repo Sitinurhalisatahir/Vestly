@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!-- Primary Colors -->
     <color name="primary">#C9A0A0</color>
     <color name="primary_dark">#A67878</color>
     <color name="primary_light">#E8C8C8</color>
 
+    <!-- Light Theme -->
     <color name="light_background">#FFFFFF</color>
     <color name="light_card">#F5F5F5</color>
     <color name="light_text_primary">#000000</color>
     <color name="light_text_secondary">#757575</color>
 
+    <!-- Dark Theme -->
     <color name="dark_background">#121212</color>
     <color name="dark_card">#1E1E1E</color>
     <color name="dark_text_primary">#FFFFFF</color>
     <color name="dark_text_secondary">#BDBDBD</color>
 
+    <!-- Common -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="error">#B00020</color>
