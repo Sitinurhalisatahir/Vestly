@@ -19,7 +19,7 @@
             android:layout_weight="1"
             android:layout_height="48dp"
             android:hint="@string/hint_search"
-            android:background="?attr/colorSurfaceVariant"
+            android:background="@drawable/bg_search_rounded"
             android:padding="12dp"
             android:inputType="text"
             android:imeOptions="actionSearch"
@@ -75,7 +75,7 @@
                     android:id="@+id/tv_empty_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tidak ada hasil ditemukan"
+                    android:text="No results found"
                     android:textSize="16sp"
                     android:textColor="?attr/colorOnSurfaceVariant"/>
 

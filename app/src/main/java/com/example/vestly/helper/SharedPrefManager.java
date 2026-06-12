@@ -3,7 +3,6 @@ package com.example.vestly.helper;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-
 public class SharedPrefManager {
 
     private static final String PREF_NAME = "VestlyPref";
