@@ -56,7 +56,6 @@
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginTop="4dp"/>
 
-            <!-- Deskripsi -->
             <TextView
                 android:id="@+id/tv_description"
                 android:layout_width="match_parent"
@@ -66,7 +65,6 @@
                 android:lineSpacingMultiplier="1.5"
                 android:layout_marginTop="12dp"/>
 
-            <!-- Tombol Simpan -->
             <Button
                 android:id="@+id/btn_favorite"
                 android:layout_width="match_parent"
@@ -93,7 +91,6 @@
                 android:background="?attr/colorSurfaceVariant"
                 android:layout_marginVertical="20dp"/>
 
-            <!-- Similar Moods Label -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
