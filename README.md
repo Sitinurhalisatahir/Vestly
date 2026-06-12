@@ -146,11 +146,11 @@ private void showCachedPhotos() {
 
 **Retrofit** digunakan untuk mengambil data foto dari **Pexels API**. Aplikasi Vestly memiliki tiga skenario pengambilan data:
 
-### 1. Halaman Home (Trending)
+### Halaman Home (Trending)
 
 Saat pengguna membuka halaman **Home**, aplikasi melakukan fetch foto trending dari endpoint `/v1/curated` dengan halaman acak (random page 1-10) untuk memberikan variasi konten.
 
-### 2. Filter Kategori (Chip)
+### Filter Kategori (Chip)
 
 Ketika pengguna mengklik **chip filter**, aplikasi melakukan fetch API dengan keyword spesifik:
 
@@ -163,7 +163,7 @@ Ketika pengguna mengklik **chip filter**, aplikasi melakukan fetch API dengan ke
 | Minimalist | "minimalist outfit" |
 | Hijab | "hijab outfit" |
 
-### 3. Pencarian (Search)
+### Pencarian (Search)
 
 Pengguna mencari foto berdasarkan **kata kunci** bebas. Pencarian dimulai setelah mengetik minimal **3 karakter** (debounce) menggunakan endpoint `/v1/search?query={query}&page={randomPage}`.
 
@@ -206,7 +206,7 @@ executor.execute(() -> {
 
 ---
 
-### 5. **Update Tech Stack**
+### **Update Tech Stack**
 | Teknologi | Fungsi |
 |-----------|--------|
 | SQLite | Penyimpanan favorit secara lokal |
