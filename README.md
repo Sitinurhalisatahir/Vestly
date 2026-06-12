@@ -1,7 +1,17 @@
-# Vestly - Fashion Inspiration App
+# Vestly — Fashion Inspiration App
 
-## Deskripsi
-Vestly adalah aplikasi inspirasi fashion yang membantu pengguna menemukan ide gaya berpakaian sehari-hari. Aplikasi ini menampilkan foto-foto outfit dari berbagai kategori seperti Casual, Formal, Streetwear, Minimalist, dan Hijab.
+- **Platform**  
+  Android  
+- **Language**  
+  Java  
+- **Min SDK**  
+  API 24 (Android 7.0)  
+- **License**  
+  MIT  
+
+*"Your Daily Fashion Inspiration"*
+
+**Vestly** adalah aplikasi inspirasi fashion yang membantu pengguna menemukan ide gaya berpakaian sehari-hari. Aplikasi ini menampilkan foto-foto outfit dari berbagai kategori seperti Casual, Formal, Streetwear, Minimalist, dan Hijab, serta mendukung penyimpanan favorit secara lokal dengan SQLite dan mode gelap/terang.
 
 **Tema Aplikasi:** Gaya Hidup (Lifestyle)
 
