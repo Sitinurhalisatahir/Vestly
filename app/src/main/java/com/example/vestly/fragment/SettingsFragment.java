@@ -34,9 +34,9 @@ public class SettingsFragment extends Fragment {
         switchTheme.setChecked(pref.isDarkTheme());
 
         if (pref.isDarkTheme()) {
-            tvDarkModeLabel.setText("Light Mode");
-        } else {
             tvDarkModeLabel.setText("Dark Mode");
+        } else {
+            tvDarkModeLabel.setText("Light Mode");
         }
 
         switchTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -44,9 +44,9 @@ public class SettingsFragment extends Fragment {
             ThemeManager.applyTheme(isChecked);
 
             if (isChecked) {
-                tvDarkModeLabel.setText("Light Mode");
-            } else {
                 tvDarkModeLabel.setText("Dark Mode");
+            } else {
+                tvDarkModeLabel.setText("Light Mode");
             }
 
             requireActivity().recreate();
