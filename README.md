@@ -371,9 +371,11 @@ Vestly/
 
 ### Status Koneksi
 
-| **Ada Internet** | Fetch dari API | Fetch dari API | Ambil dari **SQLite** |
-| **Tidak Ada Internet (pernah buka)** | Tampil dari cache | Tampil dari cache (keyword yang sama) | Ambil dari **SQLite** |
-| **Tidak Ada Internet (belum pernah buka)** | Error + Tombol Retry | Error + Tombol Retry | Tetap tampil dari **SQLite** (jika ada favorit) |
+| Kondisi | Home | Search | Favorite |
+|---------|------|--------|----------|
+| Ada Internet | Fetch dari API | Fetch dari API | Ambil dari SQLite |
+| Tidak Ada Internet (pernah buka) | Tampil dari cache | Tampil dari cache (keyword yang sama) | Ambil dari SQLite |
+| Tidak Ada Internet (belum pernah buka) | Error + Tombol Retry | Error + Tombol Retry | Tetap tampil dari SQLite (jika ada favorit) |
 
 ## Cara Install
 
